@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  boilerplate-library-api:
+    build:
+      context: ../..
+      dockerfile: ./Dockerfile
+      args:
+        - PORT=${PORT}
+        - NODE_ENV=${NODE_ENV}
+        - MONGO_URI=${MONGO_URI}
+    ports:
+      - ${PORT}:${PORT}
+    restart: unless-stopped
