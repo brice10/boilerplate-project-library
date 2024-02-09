@@ -16,7 +16,7 @@ module.exports = function (app) {
   app.route('/api/books')
     .get(async function (req, res) {
       try {
-        let filter = req.query;
+        const filter = req.query;
         return res.json(await BookServiceHelper.find(filter));
       }
       catch (error) {
@@ -26,12 +26,10 @@ module.exports = function (app) {
     })
 
     .post(async function (req, res) {
-      let title = req.body.title;
+      const title = req.body.title;
       try {
         const response = await BookServiceHelper.create({ title: title });
-        return typeof response === 'string'
-          ? res.type('txt').send(response + '')
-          : res.json(response);
+        return stringOrObjectResponse(res, response);
       }
       catch (error) {
         console.log(error)
@@ -57,9 +55,7 @@ module.exports = function (app) {
       let bookid = req.params.id;
       try {
         const response = await BookServiceHelper.find({ _id: bookid });
-        return response && response.length > 0
-          ? res.json(response[0])
-          : res.type('txt').send('no book exists');
+        return stringOrObjectResponse(res, response && response.length > 0 ? response[0] : 'no book exists');
       }
       catch (error) {
         console.log(error)
@@ -72,9 +68,7 @@ module.exports = function (app) {
       let comment = req.body.comment;
       try {
         const response = await BookServiceHelper.comment(bookid, comment);
-        return typeof response === 'string'
-          ? res.type('txt').send(response)
-          : res.json(response);
+        return stringOrObjectResponse(res, response);
       }
       catch (error) {
         console.log(error)
@@ -86,9 +80,7 @@ module.exports = function (app) {
       let bookid = req.params.id;
       try {
         const response = await BookServiceHelper.delete(bookid);
-        return typeof response === 'string'
-          ? res.type('txt').send(response)
-          : res.json(response);
+        return stringOrObjectResponse(res, response);
       }
       catch (error) {
         console.log(error)
@@ -96,4 +88,9 @@ module.exports = function (app) {
       }
     });
 
+  function stringOrObjectResponse(http, response) {
+    return typeof response === 'string'
+      ? http.type('txt').send(response)
+      : http.json(response);
+  }
 };

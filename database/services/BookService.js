@@ -19,9 +19,9 @@ class BookService {
     }
 
     async create(requestBody) {
-        if (!requestBody.title) {
+        if (!requestBody.title)
             return 'missing required field title';
-        }
+
         return await this.BookRepository.create(requestBody)
     }
 
@@ -36,9 +36,7 @@ class BookService {
         bookFound.comments.push(comment);
         bookFound.commentcount++;
 
-        const bookUpdated = await this.BookRepository.update(bookFound);
-
-        return bookUpdated;
+        return await this.BookRepository.update(bookFound);
     }
 
     async delete(id) {
@@ -46,7 +44,7 @@ class BookService {
         if (!documentFound)
             return 'no book exists';
 
-        let deletedBook = await this.BookRepository.delete(documentFound._id);
+        await this.BookRepository.delete(documentFound._id)
         return 'delete successful';
     }
 
