@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/public/style.css">
+  <link rel="stylesheet" href="./public/style.css">
   <style>
     code {
       background-color: whitesmoke;
@@ -19,14 +19,14 @@
 <br>
 <div id ='sampleposting'>
   <h2 style="text-align: left">Test API responses</h2>
-  <form action="/api/books" method="post" class="border">
-    <h4>Test post to /api/books</h4>
+  <form action="api/books" method="post" class="border">
+    <h4>Test post to api/books</h4>
     <label for="title" >Book Title</label>
     <input type="text" id="title" name="title" value=""><br>
     <input type="submit" value="Submit">
   </form>
   <form action="" method="post" id="commentTest" class="border">
-    <h4>Test post to /api/books/{bookid}</h4>
+    <h4>Test post to api/books/{bookid}</h4>
     <label for="idinputtest">BookId to comment on</label>
     <input type="text" name="id" value="" id="idinputtest"><br>
     <label for="comment">Comment</label>
@@ -54,7 +54,7 @@
 <script src="https://code.jquery.com/jquery-2.2.1.min.js"
         integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
         crossorigin="anonymous"></script>
-<script src="/public/client.js"></script>
+<script src="./public/client.js"></script>
 <script>
   /*
   *  For #sampleposting to update form action url to test inputs book id
@@ -62,7 +62,7 @@
   $(function() {
     $('#commentTest').submit(function(){
       let  id = $('#idinputtest').val();
-      $(this).attr('action', "/api/books/" + id);
+      $(this).attr('action', "api/books/" + id);
     });
   });
 </script>
